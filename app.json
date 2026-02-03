@@ -20,7 +20,8 @@
       "buildNumber": "1.0.0",
       "infoPlist": {
         "NSCameraUsageDescription": "Allow Focusa to access your camera for profile photos.",
-        "NSPhotoLibraryUsageDescription": "Allow Focusa to access your photos for attachments."
+        "NSPhotoLibraryUsageDescription": "Allow Focusa to access your photos for attachments.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
