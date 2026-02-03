@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Focusa",
+    "slug": "focusa-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#4AB37F"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.focusa.app",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow Focusa to access your camera for profile photos.",
+        "NSPhotoLibraryUsageDescription": "Allow Focusa to access your photos for attachments."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#4AB37F"
+      },
+      "package": "com.focusa.app",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-notifications"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c3671162-0a59-4ae6-aeeb-e9825bd2d782"
+      }
+    },
+    "owner": "appfocusa"
+  }
+}
