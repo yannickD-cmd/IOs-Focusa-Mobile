@@ -131,7 +131,9 @@ export default function AppNavigator() {
   const { isAuthenticated, isLoading, loadStoredAuth } = useAuthStore();
 
   useEffect(() => {
-    loadStoredAuth();
+    loadStoredAuth().catch((error) => {
+      console.error('Failed to load stored auth:', error);
+    });
   }, []);
 
   if (isLoading) {
