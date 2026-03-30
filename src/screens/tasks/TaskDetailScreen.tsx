@@ -1,11 +1,14 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
   ScrollView,
   Alert,
+  ActionSheetIOS,
+  Platform,
+  TouchableOpacity,
 } from 'react-native';
-import { Text, Button, Chip, IconButton, Menu } from 'react-native-paper';
+import { Text, Button, Chip } from 'react-native-paper';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
@@ -31,19 +34,43 @@ export default function TaskDetailScreen() {
   const task = tasks.find(t => t.id === taskId);
   const project = task?.project_id ? projects.find(p => p.id === task.project_id) : null;
 
-  const openMenu = useCallback(() => setMenuVisible(true), []);
+  const showActionSheet = () => {
+    if (Platform.OS === 'ios') {
+      ActionSheetIOS.showActionSheetWithOptions(
+        {
+          options: ['Annuler', 'Modifier', 'Supprimer'],
+          destructiveButtonIndex: 2,
+          cancelButtonIndex: 0,
+        },
+        (buttonIndex) => {
+          if (buttonIndex === 1) {
+            navigation.navigate('EditTask', { taskId });
+          } else if (buttonIndex === 2) {
+            handleDelete();
+          }
+        }
+      );
+    } else {
+      Alert.alert('Options', '', [
+        { text: 'Modifier', onPress: () => navigation.navigate('EditTask', { taskId }) },
+        { text: 'Supprimer', style: 'destructive', onPress: handleDelete },
+        { text: 'Annuler', style: 'cancel' },
+      ]);
+    }
+  };
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton
-          icon="dots-vertical"
-          onPress={openMenu}
-          style={{ backgroundColor: colors.gray[100], borderRadius: 20, width: 40, height: 40 }}
-        />
+        <TouchableOpacity
+          onPress={showActionSheet}
+          style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: '#f0f0f0', justifyContent: 'center', alignItems: 'center', marginRight: 4 }}
+        >
+          <Ionicons name="ellipsis-vertical" size={18} color={colors.black} />
+        </TouchableOpacity>
       ),
     });
-  }, [openMenu]);
+  });
 
   const handleDelete = () => {
     Alert.alert(
@@ -81,31 +108,6 @@ export default function TaskDetailScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {/* Dropdown Menu */}
-      <Menu
-        visible={menuVisible}
-        onDismiss={() => setMenuVisible(false)}
-        anchor={{ x: 1000, y: 0 }}
-      >
-        <Menu.Item
-          onPress={() => {
-            setMenuVisible(false);
-            navigation.navigate('EditTask', { taskId });
-          }}
-          title="Modifier"
-          leadingIcon="pencil"
-        />
-        <Menu.Item
-          onPress={() => {
-            setMenuVisible(false);
-            handleDelete();
-          }}
-          title="Supprimer"
-          leadingIcon="delete"
-          titleStyle={{ color: colors.error }}
-        />
-      </Menu>
-
       {/* Status Badge */}
       <View style={styles.statusRow}>
         <View style={[styles.statusBadge, { backgroundColor: statusColor + '20' }]}>
