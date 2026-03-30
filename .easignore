@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Expo local
+.expo/
+dist/
+web-build/
+
+# Native builds
+ios/
+android/
+
+# Git
+.git/
+
+# Debug
+*.log
+npm-debug.*

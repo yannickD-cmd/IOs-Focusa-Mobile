@@ -21,6 +21,9 @@
     },
     "production": {
       "distribution": "store",
+      "env": {
+        "EXPO_NO_CAPABILITY_SYNC": "1"
+      },
       "ios": {
         "autoIncrement": "buildNumber",
         "image": "latest"
