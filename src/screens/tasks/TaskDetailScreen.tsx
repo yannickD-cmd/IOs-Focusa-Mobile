@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   View,
   StyleSheet,
@@ -31,41 +31,19 @@ export default function TaskDetailScreen() {
   const task = tasks.find(t => t.id === taskId);
   const project = task?.project_id ? projects.find(p => p.id === task.project_id) : null;
 
+  const openMenu = useCallback(() => setMenuVisible(true), []);
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Menu
-          visible={menuVisible}
-          onDismiss={() => setMenuVisible(false)}
-          anchor={
-            <IconButton
-              icon="dots-vertical"
-              onPress={() => setMenuVisible(true)}
-              style={{ backgroundColor: colors.gray[100], borderRadius: 20 }}
-            />
-          }
-        >
-          <Menu.Item
-            onPress={() => {
-              setMenuVisible(false);
-              navigation.navigate('EditTask', { taskId });
-            }}
-            title="Modifier"
-            leadingIcon="pencil"
-          />
-          <Menu.Item
-            onPress={() => {
-              setMenuVisible(false);
-              handleDelete();
-            }}
-            title="Supprimer"
-            leadingIcon="delete"
-            titleStyle={{ color: colors.error }}
-          />
-        </Menu>
+        <IconButton
+          icon="dots-vertical"
+          onPress={openMenu}
+          style={{ backgroundColor: colors.gray[100], borderRadius: 20, width: 40, height: 40 }}
+        />
       ),
     });
-  }, [menuVisible, taskId]);
+  }, [openMenu]);
 
   const handleDelete = () => {
     Alert.alert(
@@ -103,6 +81,31 @@ export default function TaskDetailScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      {/* Dropdown Menu */}
+      <Menu
+        visible={menuVisible}
+        onDismiss={() => setMenuVisible(false)}
+        anchor={{ x: 1000, y: 0 }}
+      >
+        <Menu.Item
+          onPress={() => {
+            setMenuVisible(false);
+            navigation.navigate('EditTask', { taskId });
+          }}
+          title="Modifier"
+          leadingIcon="pencil"
+        />
+        <Menu.Item
+          onPress={() => {
+            setMenuVisible(false);
+            handleDelete();
+          }}
+          title="Supprimer"
+          leadingIcon="delete"
+          titleStyle={{ color: colors.error }}
+        />
+      </Menu>
+
       {/* Status Badge */}
       <View style={styles.statusRow}>
         <View style={[styles.statusBadge, { backgroundColor: statusColor + '20' }]}>

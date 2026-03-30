@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   segmentedButtons: {
-    maxWidth: 160,
+    maxWidth: 200,
   },
   emptyState: {
     backgroundColor: colors.white,

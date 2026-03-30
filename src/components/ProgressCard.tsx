@@ -60,7 +60,7 @@ export default function ProgressCard({
 
       {/* Subtitle / Count */}
       <Text style={styles.subtitle}>
-        {subtitle || `${value} sur ${total}`}
+        {subtitle || `${actualValue} sur ${actualTotal}`}
       </Text>
     </View>
   );

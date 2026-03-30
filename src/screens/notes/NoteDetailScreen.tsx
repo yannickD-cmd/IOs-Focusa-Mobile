@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   View,
   StyleSheet,
@@ -31,40 +31,19 @@ export default function NoteDetailScreen() {
   const note = notes.find(n => n.id === noteId);
   const project = note?.project_id ? projects.find(p => p.id === note.project_id) : null;
 
+  const openMenu = useCallback(() => setMenuVisible(true), []);
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Menu
-          visible={menuVisible}
-          onDismiss={() => setMenuVisible(false)}
-          anchor={
-            <IconButton
-              icon="dots-vertical"
-              onPress={() => setMenuVisible(true)}
-            />
-          }
-        >
-          <Menu.Item
-            onPress={() => {
-              setMenuVisible(false);
-              navigation.navigate('EditNote', { noteId });
-            }}
-            title="Modifier"
-            leadingIcon="pencil"
-          />
-          <Menu.Item
-            onPress={() => {
-              setMenuVisible(false);
-              handleDelete();
-            }}
-            title="Supprimer"
-            leadingIcon="delete"
-            titleStyle={{ color: colors.error }}
-          />
-        </Menu>
+        <IconButton
+          icon="dots-vertical"
+          onPress={openMenu}
+          style={{ backgroundColor: colors.gray[100], borderRadius: 20, width: 40, height: 40 }}
+        />
       ),
     });
-  }, [menuVisible, noteId]);
+  }, [openMenu]);
 
   const handleDelete = () => {
     Alert.alert(
@@ -98,6 +77,31 @@ export default function NoteDetailScreen() {
 
   return (
     <View style={styles.container}>
+      {/* Dropdown Menu */}
+      <Menu
+        visible={menuVisible}
+        onDismiss={() => setMenuVisible(false)}
+        anchor={{ x: 1000, y: 80 }}
+      >
+        <Menu.Item
+          onPress={() => {
+            setMenuVisible(false);
+            navigation.navigate('EditNote', { noteId });
+          }}
+          title="Modifier"
+          leadingIcon="pencil"
+        />
+        <Menu.Item
+          onPress={() => {
+            setMenuVisible(false);
+            handleDelete();
+          }}
+          title="Supprimer"
+          leadingIcon="delete"
+          titleStyle={{ color: colors.error }}
+        />
+      </Menu>
+
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {/* Header */}
         <View style={styles.header}>
