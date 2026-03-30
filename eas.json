@@ -25,8 +25,7 @@
         "EXPO_NO_CAPABILITY_SYNC": "1"
       },
       "ios": {
-        "autoIncrement": "buildNumber",
-        "image": "latest"
+        "autoIncrement": "buildNumber"
       },
       "android": {
         "autoIncrement": "versionCode"

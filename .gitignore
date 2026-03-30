@@ -5,7 +5,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Expo
-.expo/
+.expo/*
+!.expo/.gitkeep
 dist/
 web-build/
 
