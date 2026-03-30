@@ -237,6 +237,7 @@ const styles = StyleSheet.create({
   },
   listItem: {
     paddingVertical: spacing.sm,
+    paddingLeft: spacing.md,
   },
   iconBox: {
     width: 36,
@@ -244,7 +245,7 @@ const styles = StyleSheet.create({
     borderRadius: borderRadius.md,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: spacing.sm,
+    marginLeft: spacing.xs,
   },
   logoutButton: {
     flexDirection: 'row',

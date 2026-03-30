@@ -41,6 +41,7 @@ export default function TaskDetailScreen() {
             <IconButton
               icon="dots-vertical"
               onPress={() => setMenuVisible(true)}
+              style={{ backgroundColor: colors.gray[100], borderRadius: 20 }}
             />
           }
         >
@@ -246,7 +247,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   priorityChip: {
-    height: 28,
+    height: 32,
   },
   title: {
     fontSize: 24,

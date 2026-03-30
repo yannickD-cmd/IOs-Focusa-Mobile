@@ -153,17 +153,27 @@ export default function CreateTaskScreen() {
               Supprimer la date
             </Button>
           )}
+          {showDatePicker && (
+            <>
+              <DateTimePicker
+                value={dueDate || new Date()}
+                mode="date"
+                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                onChange={onDateChange}
+                minimumDate={new Date()}
+              />
+              {Platform.OS === 'ios' && (
+                <Button
+                  mode="contained"
+                  onPress={() => setShowDatePicker(false)}
+                  style={{ marginTop: spacing.sm, backgroundColor: colors.primary }}
+                >
+                  Valider
+                </Button>
+              )}
+            </>
+          )}
         </View>
-
-        {showDatePicker && (
-          <DateTimePicker
-            value={dueDate || new Date()}
-            mode="date"
-            display="default"
-            onChange={onDateChange}
-            minimumDate={new Date()}
-          />
-        )}
 
         {/* Priority */}
         <View style={styles.field}>
