@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "lint": "eslint .",
     "test": "jest",
-    "eas-build-post-install": "mkdir -p .expo/web/cache"
+    "eas-build-post-install": "rm -rf .expo && mkdir -p .expo/web/cache"
   },
   "dependencies": {
     "@expo/ngrok": "^4.1.3",
