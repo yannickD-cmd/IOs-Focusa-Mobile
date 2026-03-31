@@ -47,6 +47,7 @@ const Tab = createBottomTabNavigator<BottomTabParamList>();
 function MainTabs() {
   return (
     <Tab.Navigator
+      id="MainTabs"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
@@ -115,6 +116,7 @@ function MainTabs() {
 function AuthStack() {
   return (
     <Stack.Navigator
+      id="AuthStack"
       screenOptions={{
         headerShown: false,
       }}
@@ -146,6 +148,7 @@ export default function AppNavigator() {
 
   return (
     <Stack.Navigator
+      id="RootStack"
       screenOptions={{
         headerShown: false,
       }}
