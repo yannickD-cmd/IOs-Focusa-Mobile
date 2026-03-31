@@ -33,6 +33,7 @@
       "versionCode": 1
     },
     "plugins": [
+      "./plugins/fix-image-cache",
       "expo-secure-store",
       "expo-font"
     ],

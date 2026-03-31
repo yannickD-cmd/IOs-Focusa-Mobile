@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "lint": "eslint .",
     "test": "jest",
+    "postinstall": "node scripts/eas-fix-expo.js || true",
     "eas-build-post-install": "node scripts/eas-fix-expo.js"
   },
   "dependencies": {
