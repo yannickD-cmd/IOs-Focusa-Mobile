@@ -15,7 +15,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.focusa.appfocusa",
       "buildNumber": "1.0.0",
       "infoPlist": {
