@@ -5,8 +5,15 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PaperProvider } from 'react-native-paper';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
+import * as Sentry from '@sentry/react-native';
 import AppNavigator from './src/navigation/AppNavigator';
 import { theme } from './src/constants/theme';
+
+Sentry.init({
+  dsn: 'https://924e9bb5c0e44c6d830845363b152b93@o4511154828017664.ingest.de.sentry.io/4511154834309200',
+  debug: __DEV__,
+  tracesSampleRate: 1.0,
+});
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -22,6 +29,7 @@ class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    Sentry.captureException(error, { extra: { componentStack: errorInfo.componentStack } });
     console.error('App crash caught by ErrorBoundary:', error, errorInfo);
   }
 
@@ -79,7 +87,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function App() {
+function App() {
   return (
     <ErrorBoundary>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -95,3 +103,5 @@ export default function App() {
     </ErrorBoundary>
   );
 }
+
+export default Sentry.wrap(App);
